@@ -1,3 +1,41 @@
+package org.oobook.libraryv1interface;
+
+/**
+ * 
+ * @author Brahma Dathan and Sarnath Ramnath
+ * @Copyright (c) 2010
+ 
+ * Redistribution and use with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *   - the use is for academic purpose only
+ *   - Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *   - Neither the name of Brahma Dathan or Sarnath Ramnath
+ *     may be used to endorse or promote products derived
+ *     from this software without specific prior written permission.
+ *
+ * The authors do not make any claims regarding the correctness of the code in this module
+ * and are not responsible for any loss or damage resulting from its use.  
+ */
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.StringTokenizer;
+
+import org.oobook.groceryStore.business.facade.GroceryStore;
+import org.oobook.groceryStore.business.facade.Request;
+import org.oobook.groceryStore.business.facade.Result;
+
+
+
+
 public class UserInterface {
 	private static UserInterface userInterface;
 	private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -195,11 +233,11 @@ public class UserInterface {
 		Request.instance().setMemberPhone(getName("Enter phone"));
 
 		// DATE JOINED
-		Request.instance().setMemberDate(getName("Enter date joined"));
+		Request.instance().setMemberDate(getName("Enter date joined in mm/dd/yyyy"));
 		// FEE PAID
 		Request.instance().setMemberFee(getName("Enter fee"));
 		
-		Result result = library.addMember(Request.instance());
+		Result result = grocerStore.addMember(Request.instance());
 		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
 			System.out.println("Could not add member");
 		} else {
@@ -207,13 +245,33 @@ public class UserInterface {
 		}
 	}
 
-
+	/**
+	*
+	*Method to remove a specific member
+	*/
 	public void removeMember(){
+		Request.instance().setMemberName(getName("Enter member name to remove"));
+		
+		Reseult result = groceryStore.removeMember(Request.instance());
+		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
+			System.out.println("Could not remove member");
+		} else {
+			System.out.println(result.getMemberName() + "Successfully removed");
+		}
 
 
 }
 
 	public void getMemberInfo(){
+		Request.instance().setMemberName(getName("Enter member name to retrieve information"));
+		
+		Reseult result = groceryStore.getMember(Request.instance());
+		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
+			System.out.println("Could not find member");
+		} else {
+			System.out.println(result.getMemberName() + "information is, " + result.getMemberAddress() +", Phone number" + result.getMemberPhone() + 
+			", Date joined" + result.getMemberDate() + ", member ID is" + result.getMemberId());
+		}
 
 }
 
