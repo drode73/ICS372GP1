@@ -93,7 +93,7 @@ public class ProductList implements Serializable {
 	}
 
 	/**
-	 * String of the show
+	 * String of the Product
 	 */
 	@Override
 	public String toString() {
