@@ -207,6 +207,18 @@ public class UserInterface {
 		}
 	}
 
+
+	public void removeMember(){
+
+
+}
+
+	public void getMemberInfo(){
+
+}
+
+
+
 	/**
 	 * Method to be called for adding a product. Prompts the user for the appropriate
 	 * values and uses the appropriate Library method for adding the book.
@@ -231,215 +243,25 @@ public class UserInterface {
 		} while (yesOrNo("Add more products?"));
 	}
 
-	/**
-	 * Method to be called for issuing books. Prompts the user for the appropriate
-	 * values and uses the appropriate Library method for issuing books.
-	 * 
-	 */
-	public void issueBooks() {
-		Request.instance().setMemberId(getToken("Enter member id"));
-		Result result = library.searchMembership(Request.instance());
-		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
-			System.out.println("No member with id " + Request.instance().getMemberId());
-			return;
-		}
-		do {
-			Request.instance().setBookId(getToken("Enter book id"));
-			result = library.issueBook(Request.instance());
-			if (result.getResultCode() == Result.OPERATION_COMPLETED) {
-				System.out.println("Book " + result.getBookTitle() + " issued to " + result.getMemberName()
-						+ " is due on " + result.getBookDueDate());
-			} else {
-				System.out.println("Book could not be issued");
-			}
-		} while (yesOrNo("Issue more books?"));
-	}
+	public void checkout(){
 
-	/**
-	 * Method to be called for renewing books. Prompts the user for the appropriate
-	 * values and uses the appropriate Library method for renewing books.
-	 * 
-	 */
-	public void renewBooks() {
-		Request.instance().setMemberId(getToken("Enter member id"));
-		Result result = library.searchMembership(Request.instance());
-		if (result.getResultCode() != Result.OPERATION_COMPLETED) {
-			System.out.println("No member with id " + Request.instance().getMemberId());
-			return;
-		}
-		Iterator<Result> issuedBooks = library.getBooks(Request.instance());
-		while (issuedBooks.hasNext()) {
-			result = issuedBooks.next();
-			if (yesOrNo(result.getBookTitle())) {
-				Request.instance().setBookId(result.getBookId());
-				result = library.renewBook(Request.instance());
-				if (result.getResultCode() == Result.OPERATION_COMPLETED) {
-					System.out.println("Book " + result.getBookTitle() + " renewed for " + result.getMemberName()
-							+ " is due on " + result.getBookDueDate());
-				} else {
-					System.out.println("Book is not renewable");
-				}
-			}
-		}
-	}
+}
 
-	/**
-	 * Method to be called for returning books. Prompts the user for the appropriate
-	 * values and uses the appropriate Library method for returning books.
-	 * 
-	 */
-	public void returnBooks() {
-		do {
-			Request.instance().setBookId(getToken("Enter book id"));
-			Result result = library.returnBook(Request.instance());
-			switch (result.getResultCode()) {
-			case Result.BOOK_NOT_FOUND:
-				System.out.println("No such Book with id " + Request.instance().getBookId() + " in Library");
-				break;
-			case Result.BOOK_NOT_ISSUED:
-				System.out.println(" Book " + result.getBookTitle() + " was not checked out");
-				break;
-			case Result.BOOK_HAS_HOLD:
-				System.out.println("Book " + result.getBookTitle() + "has a hold");
-				break;
-			case Result.OPERATION_FAILED:
-				System.out.println("Book " + result.getBookTitle() + " could not be returned");
-				break;
-			case Result.OPERATION_COMPLETED:
-				System.out.println(" Book " + result.getBookTitle() + " has been returned");
-				break;
-			default:
-				System.out.println("An error has occurred");
-			}
-			if (!yesOrNo("Return more books?")) {
-				break;
-			}
-		} while (true);
-	}
+	public void productInfo(){
 
-	/**
-	 * Method to be called for removing books. Prompts the user for the appropriate
-	 * values and uses the appropriate Library method for removing books.
-	 * 
-	 */
-	public void removeBooks() {
-		do {
-			Request.instance().setBookId(getToken("Enter book id"));
-			Result result = library.removeBook(Request.instance());
-			switch (result.getResultCode()) {
-			case Result.BOOK_NOT_FOUND:
-				System.out.println("No such Book with id " + Request.instance().getBookId() + " in Library");
-				break;
-			case Result.BOOK_ISSUED:
-				System.out.println(" Book with id " + Request.instance().getBookId() + " is currently checked out");
-				break;
-			case Result.BOOK_HAS_HOLD:
-				System.out.println("Book with id " + Request.instance().getBookId() + " has a hold");
-				break;
-			case Result.OPERATION_FAILED:
-				System.out.println("Book could not be removed");
-				break;
-			case Result.OPERATION_COMPLETED:
-				System.out.println(" Book has been removed");
-				break;
-			default:
-				System.out.println("An error has occurred");
-			}
-			if (!yesOrNo("Remove more books?")) {
-				break;
-			}
-		} while (true);
-	}
+}
 
-	/**
-	 * Method to be called for placing a hold. Prompts the user for the appropriate
-	 * values and uses the appropriate Library method for placing a hold.
-	 * 
-	 */
-	public void placeHold() {
-		Request.instance().setMemberId(getToken("Enter member id"));
-		Request.instance().setBookId(getToken("Enter book id"));
-		Request.instance().setHoldDuration(getNumber("Enter duration of hold"));
-		Result result = library.placeHold(Request.instance());
-		switch (result.getResultCode()) {
-		case Result.BOOK_NOT_FOUND:
-			System.out.println("No such Book with id " + Request.instance().getBookId() + " in Library");
-			break;
-		case Result.BOOK_NOT_ISSUED:
-			System.out.println(" Book with id " + Request.instance().getBookId() + " is not checked out");
-			break;
-		case Result.NO_SUCH_MEMBER:
-			System.out.println(Request.instance().getMemberId() + " is not a valid member ID");
-			break;
-		case Result.OPERATION_COMPLETED:
-			System.out.println("A hold has been placed for member " + result.getMemberName() + " for book "
-					+ result.getBookTitle());
-			break;
-		default:
-			System.out.println("An error has occurred");
-		}
-	}
+	public void processShipment(){
 
-	/**
-	 * Method to be called for removing a holds. Prompts the user for the
-	 * appropriate values and uses the appropriate Library method for removing a
-	 * hold.
-	 * 
-	 */
-	public void removeHold() {
-		Request.instance().setMemberId(getToken("Enter member id"));
-		Request.instance().setBookId(getToken("Enter book id"));
-		Result result = library.removeHold(Request.instance());
-		switch (result.getResultCode()) {
-		case Result.BOOK_NOT_FOUND:
-			System.out.println("No such Book with id " + Request.instance().getBookId() + " in Library");
-			break;
-		case Result.NO_SUCH_MEMBER:
-			System.out.println("No such Member with id " + Request.instance().getMemberId() + " in Library");
-			break;
-		case Result.BOOK_NOT_ISSUED:
-			System.out.println("Book " + Request.instance().getBookId() + " is not issued");
-			break;
-		case Result.OPERATION_COMPLETED:
-			System.out.println("The hold has been removed");
-			break;
-		default:
-			System.out.println("An error has occurred");
-		}
-	}
+}
 
-	/**
-	 * Method to be called for processing books. Prompts the user for the
-	 * appropriate values and uses the appropriate Library method for processing
-	 * books.
-	 * 
-	 */
-	public void processHolds() {
-		do {
-			Request.instance().setBookId(getToken("Enter book id"));
-			Result result = library.processHold(Request.instance());
-			if (result.getResultCode() == Result.OPERATION_COMPLETED) {
-				System.out.println("Book " + result.getBookTitle() + " should be issued to " + result.getMemberName()
-						+ " phone " + result.getMemberPhone());
-			} else if (result.getResultCode() == Result.BOOK_ISSUED) {
-				System.out.println("This book " + result.getBookTitle() + " is still issued");
-			} else {
-				System.out.println("No valid holds left");
-			}
-			if (!yesOrNo("Process more books?")) {
-				break;
-			}
-		} while (true);
-	}
+	public void changePrice(){
 
-	/**
-	 * Method to be called for displaying transactions. Prompts the user for the
-	 * appropriate values and uses the appropriate Library method for displaying
-	 * transactions.
-	 * 
-	 */
+}
+
 	public void getTransactions() {
 		Request.instance().setMemberId(getToken("Enter member id"));
+		// need to change in here
 		Request.instance().setDate(getDate("Please enter the date for which you want records as mm/dd/yy"));
 		Iterator<Result> result = library.getTransactions(Request.instance());
 		while (result.hasNext()) {
@@ -448,6 +270,7 @@ public class UserInterface {
 		}
 		System.out.println("\n End of transactions \n");
 	}
+
 
 	/**
 	 * Displays all members
@@ -462,11 +285,25 @@ public class UserInterface {
 		}
 		System.out.println("End of listing");
 	}
-
+	
 	/**
-	 * Gets and prints all books.
+	 * Gets and prints all products.
 	 */
-	public void getBooks() {
+	public void getProducts() {
+		Iterator<Result> iterator = library.getBooks();
+		System.out.println("List of books (title, author, id, borrower id, due date)");
+		while (iterator.hasNext()) {
+			Result result = iterator.next();
+			System.out.println(result.getBookTitle() + " " + result.getBookAuthor() + " " + result.getBookId() + " "
+					+ result.getBookBorrower() + " " + result.getBookDueDate());
+		}
+		System.out.println("End of listing");
+	}
+
+/**
+	 * Gets and prints all orders.
+	 */
+	public void getOrders() {
 		Iterator<Result> iterator = library.getBooks();
 		System.out.println("List of books (title, author, id, borrower id, due date)");
 		while (iterator.hasNext()) {
