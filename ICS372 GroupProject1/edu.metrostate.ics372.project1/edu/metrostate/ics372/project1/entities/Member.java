@@ -16,7 +16,9 @@ public class Member implements Serializable {
 	private String phone;
 	private String id;
 	private Calendar date;
-	private int fee;
+
+	// Make the paid fee the same for each Member
+	private int fee = (int) 2.00;
 
 	private static final String MEMBER_STRING = "M";
 
@@ -59,9 +61,7 @@ public class Member implements Serializable {
 		return false;
 	}
 
-	// Change the price for the product?
 	// Make the shipments for the members?
-	// Remove the members?
 
 	/**
 	 * Gets an iterator to the issued products

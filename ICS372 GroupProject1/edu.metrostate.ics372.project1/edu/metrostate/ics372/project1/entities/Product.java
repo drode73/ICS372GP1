@@ -16,11 +16,11 @@ public class Product implements Serializable {
 	 * @param price Product Price
 	 * @param order Product Minimum Reorder
 	 */
-	public Product(String name, String id, int price, int order) {
+	public Product(String name, String id, int price, int reorder) {
 		this.productName = name;
 		this.productID = id;
 		this.productPrice = price;
-		this.productReorder = order;
+		this.productReorder = reorder;
 	}
 
 	public String getProductName() {
