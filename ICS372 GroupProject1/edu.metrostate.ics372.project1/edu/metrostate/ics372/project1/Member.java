@@ -1,4 +1,4 @@
-package edu.metrostate.ics372.project1.entities;
+package edu.metrostate.ics372.project1;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -19,14 +19,7 @@ public class Member implements Serializable {
 
 	// Make the paid fee the same for each Member
 	private int fee = 2;
-
 	private static final String MEMBER_STRING = "M";
-
-	/**
-	 * MEMBER CLASS: Check if we need to create an List object Product with a
-	 * LinkedList
-	 */
-
 	private List<Product> products = new LinkedList<Product>();
 	private List<Transaction> transactions = new LinkedList<Transaction>();
 	private static int idCounter;
@@ -77,13 +70,14 @@ public class Member implements Serializable {
 	 * 
 	 * @param date the date for which the transactions have to be retrieved
 	 * @return the iterator to the collection
-	 */
-	// Need to check with other Groupmates to see if they created Result java class
-	/*
-	 * public Iterator<Result> getTransactionsOnDate(Calendar date) { return new
-	 * SafeTransactionIterator( new FilteredIterator(transactions.iterator(),
-	 * transaction -> transaction.onDate(date))); }
-	 */
+	 *//*
+		 * // Need to check with other Groupmates to see if they created Result java
+		 * class
+		 * 
+		 * public Iterator<Result> getTransactionsOnDate(Calendar date) { return new
+		 * SafeTransactionIterator( new FilteredIterator(transactions.iterator(),
+		 * transaction -> transaction.onDate(date))); }
+		 */
 
 	/**
 	 * Returns the list of all transactions for this member.

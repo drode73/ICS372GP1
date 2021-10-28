@@ -1,4 +1,4 @@
-package edu.metrostate.ics372.project1.entities;
+package edu.metrostate.ics372.project1;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
