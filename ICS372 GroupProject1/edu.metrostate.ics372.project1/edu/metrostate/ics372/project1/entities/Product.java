@@ -6,8 +6,8 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String productName;
 	private String productID;
-	private double productPrice;
-	private double productReorder;
+	private int productPrice;
+	private int productReorder;
 
 	/**
 	 * 
@@ -16,7 +16,7 @@ public class Product implements Serializable {
 	 * @param price Product Price
 	 * @param order Product Minimum Reorder
 	 */
-	public Product(String name, String id, double price, double order) {
+	public Product(String name, String id, int price, int order) {
 		this.productName = name;
 		this.productID = id;
 		this.productPrice = price;
@@ -39,19 +39,24 @@ public class Product implements Serializable {
 		this.productID = productID;
 	}
 
-	public double getProductPrice() {
+	public int getProductPrice() {
 		return productPrice;
 	}
 
-	public void setProductPrice(double productPrice) {
+	public void setProductPrice(int productPrice) {
 		this.productPrice = productPrice;
 	}
 
-	public double getProductReorder() {
-		return productReorder;
+	/**
+	 * Get the Product by Reordering (multiply by 2)
+	 * 
+	 * @return productReorder
+	 */
+	public int getProductReorder() {
+		return productReorder * 2;
 	}
 
-	public void setProductReorder(double productReorder) {
+	public void setProductReorder(int productReorder) {
 		this.productReorder = productReorder;
 	}
 
