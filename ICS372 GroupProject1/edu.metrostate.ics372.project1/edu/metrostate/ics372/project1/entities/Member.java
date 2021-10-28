@@ -18,7 +18,7 @@ public class Member implements Serializable {
 	private Calendar date;
 
 	// Make the paid fee the same for each Member
-	private int fee = (int) 2.00;
+	private int fee = 2;
 
 	private static final String MEMBER_STRING = "M";
 
