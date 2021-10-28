@@ -1,4 +1,4 @@
-package edu.metrostate.ics372.project1;
+package edu.metrostate.ics372.project1.entities;
 
 import java.io.Serializable;
 import java.util.Calendar;
