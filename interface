@@ -302,6 +302,17 @@ public class UserInterface {
 	}
 
 	public void checkout(){
+		//Get the member Id to checkout them out
+		Request.instance().setMemberId(getToken("Enter member ID"));
+		
+		//Get the product item and then the quantity. then see if they have more products 
+		// keep adding products and thier quantity until they are done then add total.
+		Request.instance().setCart(getProduct("Enter Product title"));
+		Request.instance().setQuantity(getQuantity("Get quantity"));
+		// ask if more products
+		("Any more items?");
+		//Get and return total owed
+		Request.instance().setTotal(getTotal(Quantity*price);
 
 }
 
