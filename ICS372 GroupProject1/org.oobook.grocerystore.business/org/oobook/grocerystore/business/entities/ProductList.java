@@ -44,14 +44,18 @@ public class ProductList implements Serializable {
 	}
 
 	/**
-	 * Return a list of Products
+	 * Returns an iteration for all of the Products
 	 */
-	public void getProductList() {
+	public Iterator getProductList() {
 		Iterator result = products.iterator();
-		System.out.println("The List of Products:");
-		while (result.hasNext()) {
-			System.out.println(result.next());
+		if (products != null && !products.isEmpty()) {
+			System.out.println("List of Products: ");
+			while (result.hasNext()) {
+				System.out.println(result.next());
+			}
 		}
+		return result;
+
 	}
 
 	/**
@@ -61,7 +65,7 @@ public class ProductList implements Serializable {
 	 */
 	private void writeObject(ObjectOutputStream output) {
 		try {
-			// output.defaultWriteObject();
+			output.defaultWriteObject();
 			output.writeObject(productList);
 		} catch (IOException ioe) {
 			System.out.println(ioe);
@@ -78,7 +82,7 @@ public class ProductList implements Serializable {
 			if (productList != null) {
 				return;
 			} else {
-				// input.defaultReadObject();
+				input.defaultReadObject();
 				if (productList == null) {
 					productList = (ProductList) input.readObject();
 				} else {
