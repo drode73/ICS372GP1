@@ -302,10 +302,28 @@ public class UserInterface {
 	}
 
 	public void checkout(){
+		Request.instance().setMemberId(getToken("Enter member id"));
+		// Do we need to enter the date
+		
+		Request.instance().setDate("Enter the date"));
+		// Ask for products 
+		
+		Reuqest.instance().
+		//ask if there are any more produts
+		
+		Request.instance().setCheckOut(getmember ID
 
 }
 
 	public void productInfo(){
+		Request.instnace().getProductID(getToken("Enter Product ID"));
+		Iterator<Result> iterator = library.getProductInfo();
+		System.out.println("Product information (name, price, id)");
+		while (iterator.hasNext()) {
+			Result result = iterator.next();
+			System.out.println(result.getProductName() + " " + result.getProductPrice() + " " + result.getProductID());
+					}
+		
 
 }
 
