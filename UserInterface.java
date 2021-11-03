@@ -288,7 +288,7 @@ public class UserInterface {
 	 * 
 	 */
 	
-	public void addPoducts() {
+	public void addProducts() {
 		do {
 			Request.instance().setProductName(getName("Enter  title"));
 			Request.instance().setProductId(getToken("Enter id"));
@@ -480,7 +480,7 @@ public class UserInterface {
 				checkout();
 				break;
 			case PRODUCT_INFO:
-				getProductInfo();
+				productInfo();
 				break;
 			case PROCESS_SHIPMENT:
 				processShipment();
