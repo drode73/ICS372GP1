@@ -308,6 +308,13 @@ public class UserInterface {
 	}
 
 	public void checkout(){
+		double price = 0;
+		double totalPrice = 0;
+		Request.instance().setMemberId(getToken("Enter member ID"));
+		result memberResult = groceryStore.searchMember(Request.instance());
+		if (memberResult.getResultCode() == Result.OPERATION_FAILED) {
+			System.out.println("Member not found");
+		}
 		// Ask for products 
 		do {			
 			Request.instance().getProductName(getName("Enter the Product"));
