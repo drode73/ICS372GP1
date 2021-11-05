@@ -280,7 +280,7 @@ public class UserInterface {
 
 }
 
-
+4
 
 	/**
 	 * Method to be called for adding a product. Prompts the user for the appropriate
@@ -301,30 +301,40 @@ public class UserInterface {
 			if (result.getResultCode() != Result.OPERATION_COMPLETED) {
 				System.out.println("Product could not be added");
 			} else {
-				System.out.println("Product " + result.getProductTitle() + " added");
+				System.out.println("Product " + result.getProductName() + " added");
 			}
 		} while (yesOrNo("Add more products?"));
 		
 	}
 
 	public void checkout(){
-		Request.instance().setMemberId(getToken("Enter member id"));
-		// Do we need to enter the date
-		
-		Request.instance().setDate(getDate("Enter the date mm/dd/yyyy"));
 		// Ask for products 
-		do {	
-		
-		Request.instance().getProductName(getName("Enter the Product"));
-		//ask if there are any more products
-		//This should add the product to the cart
-		Request.instance().setCheckOut();
-		}// the while loop continues to ask for more products
-		while(yesOrNo("Are there more items to checkout?"));
-		//Once the products are all added we need to return the quantity and price
-		//Return the total amount for products
-				System.out.println("The cart has"+ result.getProductlist + result.getQuantity
-						+ "This comes to  a total of" + result.getTotal);
+		do {			
+			Request.instance().getProductName(getName("Enter the Product"));
+			Request.instance().getQuantity(getAmount("How many?"));
+			//ask if there are any more products
+			//This should add the product to the cart
+			Request.instance().setCheckOut();
+			Result result = groceryStore.checkOut(Request.instance());
+			if (result.getRsultCode() == result.OPERATION_FAILED) {
+					System.out.println("Invaild Entry");
+			}
+			if(!yesOrNo("Checkout more items?")) {
+					break;
+					}
+			} while(true);
+		Iterator<Result> result = groceryStore.getItemsInCart(Request.instance());
+		// the while loop continues to ask for more products
+		while(result.hasNext());
+			Result product = result.next();
+			price = Double.parseDouble(product.getProductQuantity() *
+					Double.parseDouble(product.getProductPrice());
+			totalPrice += price;
+			System.out.println(product.getProductname() + "  " + product.getProductQuantity() + "  "
+					+ product.getProductPrice() + "   " + price);
+			Request.instance(*).setTotalAmount(Double.toString(totalPrice));
+			System.out.println("Total" + "\t" + totalPrice);
+			groceryStore.createTransaction(Request.instance());
 				
 				
 }
